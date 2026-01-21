@@ -143,6 +143,12 @@ export default function ArtworksTable() {
     return value || 'N/A'
   }
 
+  const handleClearAll = () => {
+    setSelectedIds(new Set())
+    setDeselectedIds(new Set())
+    setSelectTarget(0)
+  }
+
   return (
     <div style={{ position: 'relative' }}>
       {loading && (
@@ -162,8 +168,26 @@ export default function ArtworksTable() {
         </div>
       )}
 
-      <div style={{ marginBottom: '16px', display: 'flex', gap: '12px', alignItems: 'center' }}>
+      <div style={{ marginBottom: '16px', display: 'flex', gap: '12px', alignItems: 'center', justifyContent: 'space-between' }}>
         <span style={{ fontSize: '14px', color: '#6c757d' }}>Selected: {getSelectionCount()} rows</span>
+        <button
+          onClick={handleClearAll}
+          style={{
+            padding: '6px 16px',
+            backgroundColor: '#dc3545',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            fontSize: '14px',
+            fontWeight: '500',
+            transition: 'background-color 0.2s'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#c82333'}
+          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#dc3545'}
+        >
+          Clear All
+        </button>
       </div>
 
       <SelectionOverlay overlayRef={overlayRef} onApply={handleCustomSelection} />
